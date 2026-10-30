@@ -1,11 +1,13 @@
 import "server-only";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 /**
  * 改動公開內容後讓前台即時更新（前台公開頁 revalidate=60，這裡主動清）。
  * 路徑對照 tugo_handoff README §3 路由表；未知路徑 revalidatePath 不會報錯。
  */
 export function revalidatePublic(kind: "product" | "artist" | "collection" | "category" | "content" | "site", slug?: string | null) {
+  // 前台目錄資料整包快取在這兩個 tag（src/lib/site），只清路徑不會清到 unstable_cache
+  revalidateTag(kind === "site" ? "tugo-site-images" : "tugo-catalog");
   const paths = new Set<string>(["/"]);
   switch (kind) {
     case "product":
