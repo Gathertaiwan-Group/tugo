@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Noto_Sans_TC, Noto_Serif_TC, JetBrains_Mono } from "next/font/google";
-import { DemoBanner } from "@/components/DemoBanner";
 import { SITE_URL } from "@/lib/env";
 import "./globals.css";
 
@@ -18,19 +17,11 @@ export const metadata: Metadata = {
   openGraph: { title: TITLE, description: DESC, type: "website", locale: "zh_TW" },
 };
 
+// 前台外框（DemoBanner / Header / Footer / <main>）在 src/app/(site)/layout.tsx；/admin 不吃前台外框。
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-TW" className={`${sans.variable} ${serif.variable} ${mono.variable}`}>
-      <body>
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-ctl focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
-        >
-          跳至主要內容
-        </a>
-        <DemoBanner />
-        <main id="main">{children}</main>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
