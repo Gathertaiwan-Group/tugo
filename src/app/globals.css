@@ -162,38 +162,41 @@
   color: var(--color-muted);
 }
 
-/* 全站基礎 §4.2 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-body {
-  margin: 0;
-  background: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  font-size: 15px;
-  line-height: 1.7;
-}
-a {
-  color: inherit;
-  text-decoration: none;
-}
-a:hover {
-  color: var(--color-forest);
-}
-:focus-visible {
-  outline: 2px solid var(--color-tangerine);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-::placeholder {
-  color: var(--color-disabled);
+/* 全站基礎 §4.2
+ * 放進 @layer base：Tailwind v4 的 utilities 在 @layer utilities，未分層的 a{color:inherit} 會蓋掉 text-paper 等 class。 */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--color-forest);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-tangerine);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::placeholder {
+    color: var(--color-disabled);
+  }
 }
 
 /* 減少動態：關閉所有動畫與轉場 §4.7 */
