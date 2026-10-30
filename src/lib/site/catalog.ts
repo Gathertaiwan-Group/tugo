@@ -62,6 +62,16 @@ const loadCatalog = unstable_cache(
 
 export const getCatalog = cache(loadCatalog);
 
+/** 給 generateStaticParams／sitemap：建置時連不到 DB（如 CI 假網址）就回 null，頁面改為請求時才產生 */
+export async function getCatalogOrNull() {
+  try {
+    return await getCatalog();
+  } catch (e) {
+    console.warn("[catalog] 建置時讀取失敗，略過預先產生：", e instanceof Error ? e.message : e);
+    return null;
+  }
+}
+
 /** 後台「網站圖片」slot（tugo.site_images，anon 可讀）：home.hero / home.hero_full / about.main / collaborate.hero / category.<id> … */
 export type SiteImage = { url: string; alt: string | null };
 export const getSiteImages = unstable_cache(

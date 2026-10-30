@@ -141,7 +141,7 @@ export function ShopView({
             onChange={(e) => update({ q: e.target.value })}
             placeholder="在此分類中搜尋商品或藝術家"
             aria-label="關鍵字搜尋"
-            className="min-w-0 flex-1 border-0 bg-transparent text-[16px] outline-none nav:text-[14px]"
+            className="h-11 min-w-0 flex-1 border-0 bg-transparent text-[16px] outline-none nav:h-auto nav:text-[14px]"
           />
         </label>
         <button

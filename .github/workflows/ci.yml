@@ -25,11 +25,11 @@ jobs:
       - run: npm ci
       - run: npm run lint
       - run: npx tsc --noEmit
-      # build 不需真實 Supabase 金鑰：頁面不在 build 時查 DB；用假值即可
+      # 前台目錄頁在 build 時預先產生、會讀 DB，所以用真的公開 URL＋anon key（兩者本就會進前端 bundle，非機密）
       - run: npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ci-placeholder
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SITE_URL: https://tugo-amber.vercel.app
 
   migrate:

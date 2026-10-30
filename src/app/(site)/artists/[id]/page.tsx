@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCatalog, toLite } from "@/lib/site/catalog";
+import { getCatalogOrNull, getCatalog, toLite } from "@/lib/site/catalog";
 import { ImageOrPlaceholder } from "@/components/site/ImageOrPlaceholder";
 import { ProductCard } from "@/components/site/ProductCard";
 import { CollectionMiniCard, Portrait } from "@/components/site/cards";
@@ -10,7 +10,7 @@ export const revalidate = 60;
 type Props = { params: Promise<{ id: string }> };
 
 export async function generateStaticParams() {
-  return (await getCatalog()).artists.map((a) => ({ id: a.id }));
+  return ((await getCatalogOrNull())?.artists ?? []).map((a) => ({ id: a.id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

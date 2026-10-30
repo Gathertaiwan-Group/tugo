@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCatalog, getSizeChart, toLite } from "@/lib/site/catalog";
+import { getCatalogOrNull, getCatalog, getSizeChart, toLite } from "@/lib/site/catalog";
 import { money } from "@/lib/site/format";
 import { ProductDetail } from "@/components/site/ProductDetail";
 import { ProductCard } from "@/components/site/ProductCard";
@@ -12,7 +12,7 @@ export const revalidate = 60;
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return (await getCatalog()).products.map((p) => ({ slug: p.slug }));
+  return ((await getCatalogOrNull())?.products ?? []).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
