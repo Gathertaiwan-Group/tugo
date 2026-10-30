@@ -5,3 +5,7 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    # 主版本升級（例如 Next 16）需人工評估，不自動開 PR
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
